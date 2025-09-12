@@ -14,12 +14,13 @@ public class Player
 
     public void playTurn()
     {
-        //do stuff
+        //System.out.print("Your hand is:"+ String.);
     }
 
     public void hit()
     {
         //do stuff
+    
     }
 
     public int getHandValue()
