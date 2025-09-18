@@ -9,11 +9,21 @@ public class Run {
         }
 
         //Player amount
-        Scanner playerAmount = new Scanner(System.in); 
-        System.out.println("Enter number of players");
+        boolean player_step = true;
+        while(player_step){
+            Scanner integScanner = new Scanner(System.in); 
+            System.out.println("Enter number of players (up to 4)");
 
-        String players = playerAmount.nextLine();
-        System.out.println(players +" players");
+            Integer players = integScanner.nextInt();
+            integScanner.nextLine();
 
+            if(players < 5 && players > 0) {
+                System.out.println(players +" players selected");
+                player_step = false;
+            }
+            else{
+                System.out.println("please select up to but not over 4 players");
+            }
+        }
     }
 }
