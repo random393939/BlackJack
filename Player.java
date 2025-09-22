@@ -6,7 +6,7 @@ public class Player
     private double money;
     private ArrayList<Card> hand = new ArrayList<>();
 
-    public Player(String name)
+    public Player(String name, double money)
     {
         this.name = name;
         this.money = 100;
