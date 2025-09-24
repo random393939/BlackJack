@@ -9,10 +9,13 @@ public class Run {
             System.out.println(card);
         }
 
-        //Player amount
         boolean player_step = true;
-        ArrayList<String> player_List = new ArrayList<String>();
+        ArrayList<String> player_names_List = new ArrayList<String>();
+        ArrayList<Player> player_List = new ArrayList<String>();
+
+
         while(player_step){
+
             Scanner integScanner = new Scanner(System.in); 
             System.out.println("Enter number of players (up to 4)");
 
@@ -25,30 +28,46 @@ public class Run {
                     Scanner scanner = new Scanner(System.in);
                     System.out.println("What is your player name, player"+j);
                     String player_name = scanner.next();
-                    player_List.add(player_name);
-
-                    Player player = new Player(player_name, 100);
-
+                    player_names_List.add(player_name);
                     scanner.nextLine();
                 }
-                System.out.println(player_List);
-                int player_amount = player_List.size();
-                System.out.println(player_amount);
                 player_step = false;
 
-                boolean player_bet_amount = true;
-                while(player_bet_amount){
-
-                    for(int x = 0; x < player_amount; x++){
-                        String current_player = player_List.get(x);
-                        System.out.println(current_player + current_player.(this.money)); //Left off here
-                    }
-                    player_bet_amount=false;
+                //create players
+                for(int x = 0; x < players; x++){
+                    String current_player_name = player_names_List.get(x);
+                    Player player = new Player(current_player_name,100 );
+                    player_List.add(player);
+                    
                 }
+                //turn cycle
+                for(int y = 0; y < players; y++){
+                    Player current_player = (player_List.get(y));
+                    current_player.playTurn();
+
+                }
+                
+                
             }
             else{
                 System.out.println("please select up to but not over 4 players");
             }
         }
+                
+                boolean player_bet_amount=true;
+                while(player_bet_amount){
+                    Scanner integScanner2 = new Scanner(System.in); 
+                    System.out.println("Enter bet amount");
+                    Integer bet_amount = integScanner2.nextInt();
+                    while(0 >= bet_amount || bet_amount > 100){
+                        System.out.println("Enter a valid bet amount");
+                        bet_amount = integScanner2.nextInt();
+
+                    }
+                    System.out.println(bet_amount);
+                    integScanner2.nextLine();
+                player_bet_amount=false;
+                }
+        
     }
 }

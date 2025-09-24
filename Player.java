@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player
 {
@@ -9,12 +10,13 @@ public class Player
     public Player(String name, double money)
     {
         this.name = name;
-        this.money = 100;
+        this.money = money;
     }
 
     public void playTurn()
     {
-        //System.out.print("Your hand is:"+ String.);
+        playerMoney();
+        
     }
 
     public void hit()
@@ -32,5 +34,17 @@ public class Player
     public void getCard(Deck deck)
     {
         //do stuff
+    }
+
+    public double getMoney()
+    {
+        return money;
+    }
+    public String getName()
+    {
+        return name;
+    }
+    public void playerMoney(){ 
+        System.out.println(name +" your total money is: $"+ money);
     }
 }
