@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Run {
     public static void main(String[] args) {
         Deck deck = new Deck();
+        deck.shuffle();
         
         for(Card card : deck.getCards())
         {
@@ -11,19 +12,20 @@ public class Run {
 
         boolean player_step = true;
         ArrayList<String> player_names_List = new ArrayList<String>();
-        ArrayList<Player> player_List = new ArrayList<String>();
+        ArrayList<Player> player_List = new ArrayList<Player>();
 
 
         while(player_step){
 
+            //create amount of players
             Scanner integScanner = new Scanner(System.in); 
             System.out.println("Enter number of players (up to 4)");
 
             Integer players = integScanner.nextInt();
             integScanner.nextLine();
 
+            //player names
             if(players < 5 && players > 0) {
-                System.out.println(players +" players selected");
                 for(int j = 1;j<(players+1);j++){
                     Scanner scanner = new Scanner(System.in);
                     System.out.println("What is your player name, player"+j);
@@ -40,11 +42,10 @@ public class Run {
                     player_List.add(player);
                     
                 }
-                //turn cycle
+                //bet cycle
                 for(int y = 0; y < players; y++){
                     Player current_player = (player_List.get(y));
                     current_player.playTurn();
-
                 }
                 
                 
@@ -54,20 +55,6 @@ public class Run {
             }
         }
                 
-                boolean player_bet_amount=true;
-                while(player_bet_amount){
-                    Scanner integScanner2 = new Scanner(System.in); 
-                    System.out.println("Enter bet amount");
-                    Integer bet_amount = integScanner2.nextInt();
-                    while(0 >= bet_amount || bet_amount > 100){
-                        System.out.println("Enter a valid bet amount");
-                        bet_amount = integScanner2.nextInt();
-
-                    }
-                    System.out.println(bet_amount);
-                    integScanner2.nextLine();
-                player_bet_amount=false;
-                }
         
     }
 }
