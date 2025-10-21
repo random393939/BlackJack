@@ -16,7 +16,6 @@ public class Player
 
     public void playTurn(Deck deck)
     {
-        playerMoney();
         getHand(deck);
         hitOrStay(deck);
     }
