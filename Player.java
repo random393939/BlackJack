@@ -17,37 +17,37 @@ public class Player
     public void playTurn(Deck deck)
     {
         playerMoney();
-        playerBet();
         getHand(deck);
+        hitOrStay(deck);
+    }
+
+    public void hitOrStay(Deck deck)
+    {
+
         for (Card card : hand) 
-        {
-            System.out.println(card);
-        }
-        Scanner scanner = new Scanner(System.in);
-        boolean turnOver = false;
-        while (!turnOver) {
-            System.out.println("Hit or Stay?");
-            String choice = scanner.nextLine().toLowerCase();
-            if (choice.equals("hit")) {
-                getCard(deck);
-                System.out.println("Your hand:");
-                for (Card card : hand) {
-                    System.out.println(card);
-                }
-                if (getHandValue() > 21) {
-                    System.out.println("Bust!");
+            {
+                System.out.println(card);
+            }
+            Scanner scanner = new Scanner(System.in);
+            boolean turnOver = false;
+            while (!turnOver) {
+                System.out.println("Hit or Stay " + name + ":");
+                String choice = scanner.nextLine().toLowerCase();
+                if (choice.equals("hit")) {
+                    getCard(deck);
+                    System.out.println("Hand:");
+                    for (Card card : hand) {
+                        System.out.println(card);
+                    }
+                    if (getHandValue() > 21) {
+                        System.out.println("Bust");
+                        turnOver = true;
+                    }
+                } else if (choice.equals("stay")) {
                     turnOver = true;
                 }
-            } else if (choice.equals("stay")) {
-                turnOver = true;
             }
         }
-    }
-
-    public void hit()
-    {
-    }
-
     public int getHandValue() {
         int total = 0;
         for (Card card : hand) {
@@ -112,7 +112,6 @@ public class Player
             }
             betAmount = bet_amount;
             money -= betAmount;
-            System.out.println("you have: $"+money+" left");
             integScanner2.nextLine();
             player_bet_amount = false;
         }

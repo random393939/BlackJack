@@ -4,20 +4,23 @@ public class Dealer extends Player
     {
         super("Robert",100);
     }
-    public Card getVisibleCard() {
+    public Card getVisibleCard() 
+    {
         return getHand().get(0);
     }
 
 
     @Override
-    public void playTurn(Deck deck) {
-        getHand(deck); // draw first card
-        System.out.println("Dealer's visible card: " + getVisibleCard());
+    public void playTurn(Deck deck)
+    {
+        getHand(deck); //draw 1st card
+        System.out.println("Dealer's card: " + getVisibleCard());
 
-        while (getHandValue() < 17) {
+        while (getHandValue() < 17) 
+        {
             getCard(deck);
         }
 
-        System.out.println("Dealer stands with hand value: " + getHandValue());
+        System.out.println("Dealer stands with : " + getHandValue());
     }
 }

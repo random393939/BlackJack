@@ -4,18 +4,17 @@ public class Run {
     public static void main(String[] args) {
         Deck deck = new Deck();
         deck.shuffle();
+
         //create dealer
         Dealer dealer = new Dealer();
 
-        boolean player_step = true;
+        //create empty player list's
         ArrayList<String> player_names_List = new ArrayList<String>();
         ArrayList<Player> player_List = new ArrayList<Player>();
 
-        while(player_step){
-
             //create amount of players
             Scanner integScanner = new Scanner(System.in); 
-            System.out.println("Enter number of players (up to 4)");
+            System.out.println("Enter number of players (1-4): ");
 
             Integer players = integScanner.nextInt();
             integScanner.nextLine();
@@ -29,7 +28,6 @@ public class Run {
                     player_names_List.add(player_name);
                     scanner.nextLine();
                 }
-                player_step = false;
 
                 //create players
                 for(int x = 0; x < players; x++){
@@ -37,7 +35,7 @@ public class Run {
                     Player player = new Player(current_player_name,100 );
                     player_List.add(player);
                 }
-
+                
                 boolean keepPlaying = true;
                 Scanner roundScanner = new Scanner(System.in);
 
@@ -50,19 +48,31 @@ public class Run {
                     }
                     dealer.clearHand();
 
-                    dealer.getHand(deck); // dealer draws first card
-                    System.out.println("-------------------------------------");
-                    System.out.println("Dealer's first card: " + dealer.getVisibleCard());
-
-                    //bet + play cycle
+                    //bet cycle
                     for(int y = 0; y < players; y++){
                         Player current_player = player_List.get(y);
                         if (current_player.getMoney() <= 0) {
                             System.out.println(current_player.getName() + " has $0 and cannot play this round.");
                             continue;
                         }
+                        current_player.playerMoney();
+                        current_player.playerBet();
+                    }
+
+                    //dealer draws first card
+                    dealer.getCard(deck);
+                    System.out.println("-------------------------------------");
+                    System.out.println("Dealer's first card: " + dealer.getVisibleCard());
+
+                    //players take turns
+                    for(int y = 0; y < players; y++){
+                        Player current_player = player_List.get(y);
+                        if (current_player.getMoney() <= 0) {
+                            continue;
+                        }
                         current_player.playTurn(deck);
                     }
+
 
                     //dealer turn
                     System.out.println("Dealer's turn:");
@@ -76,34 +86,32 @@ public class Run {
                             continue;
                         }
                         int playerScore = current_player.getHandValue();
-                        System.out.println("\n" + current_player.getName() + "'s result:");
+                        System.out.print(current_player.getName() + "'s result: ");
                         if(playerScore > 21){
-                            System.out.println("Busted. You lose.");
+                            System.out.println("Bust");
                         } else if(dealerScore > 21 || playerScore > dealerScore){
-                            System.out.println("You win!");
+                            System.out.println("Win");
                             current_player.addMoney(current_player.getBetAmount() * 2);
                         } else if(playerScore == dealerScore){
-                            System.out.println("Tie. Your bet is returned.");
+                            System.out.println("Tie");
                             current_player.addMoney(current_player.getBetAmount());
                         } else {
-                            System.out.println("You lose.");
+                            System.out.println("Lose");
                         }
                     }
 
                     //ask to play again
                     System.out.println("Play another round? (yes/no)");
-                    String response = roundScanner.nextLine().toLowerCase();
-                    if(!response.equals("yes")){
+                    String playMore = roundScanner.nextLine().toLowerCase();
+                    if(!playMore.equals("yes")){
                         keepPlaying = false;
                     }
                 }
 
             }
             else{
-                System.out.println("please select up to but not over 4 players");
+                System.out.println("*please select up to but not over 4 players*");
             }
-        }
+        
     }
-
-
 }
